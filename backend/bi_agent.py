@@ -173,7 +173,7 @@ DataFrame `wo_df` (Work Orders tracking execution):
 You must follow these rules:
 1. Output your python code in a SINGLE ```python ... ``` block. Do not write any other explanation or text.
 2. Put the final numerical or tabular result in a variable called `result` or print it.
-3. You can generate charts! If the user's question involves a breakdown, trends, or comparisons, draw a plot using matplotlib (`plt.bar`, `plt.pie`, `plt.plot`, `plt.scatter`, etc.). Do NOT call `plt.show()`, just draw it and let the system save it. Set nice labels and titles, and use modern color palettes.
+3. You can generate charts! If the user's question involves a breakdown, trends, or comparisons, draw a plot using matplotlib (plt.bar, plt.pie, plt.plot, plt.scatter, etc.). IMPORTANT: The application uses a light theme with an English Heritage color scheme. Always style your plots for a light background: set the figure facecolor and axes facecolor to '#ffffff' or transparent, use a very light warm gray for grid lines (e.g. '#e3dfd5'), use deep slate navy '#1e293b' for labels and titles, and use muted heritage colors for data representation (teal: '#5A8286', crimson: '#B04A4C', sage green: '#5F856F', amber: '#C28B38'). Do NOT call plt.show(), just let it plot.
 4. Treat sector names and other fields with flexibility (e.g. use `.str.lower()` or `.str.strip()` or fuzzy search like `.str.contains('energy', case=False)`).
 5. Join dataframes if the question crosses both: deals_df and wo_df can be joined. You can join them by matching deal names: e.g. `deals_df.merge(wo_df, left_on='Deal Name', right_on='Deal name masked')` or client codes.
 6. Address missing values/nans appropriately using `.fillna()` or `.dropna()` so the math is correct.

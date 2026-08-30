@@ -13,7 +13,7 @@ We chose a decoupled **Full-Stack Architecture**:
 
 ### Justifications:
 - **FastAPI (Python)**: Business intelligence requires data manipulation, filtering, and cross-board joins. Python is the industry standard for data science due to `pandas` and `numpy`. Implementing this logic in Node.js/JavaScript would make complex groupings, date standardizations, and joins highly error-prone for an LLM. FastAPI provides a fast, async REST API with automatic OpenAPI docs.
-- **React (Vite)**: Scaffolded a highly responsive SPA. We implemented a unified CSS design system in `src/index.css` using HSL variables, dark mode, card glows, and transition states for a premium visual aesthetic, avoiding browser defaults and templates.
+- **React (Vite)**: Scaffolded a highly responsive SPA. We implemented an elegant, minimal "English Heritage" light theme styling system in `src/index.css` using soft warm-sand backgrounds, pure white cards, and muted sage/teal/crimson accents. This avoids standard dark-mode / purple-glow AI styling, making the interface feel handcrafted, bespoke, and professional.
 - **Gemini & Code Interpreter**: Instead of writing rigid endpoints for every possible query, we designed a **Code Interpreter Loop** in the backend. Gemini writes pandas query code, which is executed safely inside a local context. This handles *any* cross-board questions dynamically.
 
 ---
