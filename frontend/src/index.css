@@ -1,24 +1,24 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
 
 :root {
-  /* HSL Color Palette */
-  --bg-main: 224 25% 9%;
-  --bg-surface: 224 20% 13%;
-  --bg-surface-elevated: 224 20% 18%;
-  --primary: 263 80% 62%;
-  --primary-glow: 263 80% 62% / 0.15;
-  --secondary: 190 90% 50%;
-  --secondary-glow: 190 90% 50% / 0.15;
+  /* HSL Color Palette - High-Trust Corporate American Navy & Crimson */
+  --bg-main: 218 35% 8%;
+  --bg-surface: 218 28% 12%;
+  --bg-surface-elevated: 218 22% 16%;
+  --primary: 215 90% 52%;             /* Vibrant Navy/Royal Blue */
+  --primary-glow: 215 90% 52% / 0.12;
+  --secondary: 355 85% 55%;           /* Crimson Red Accent */
+  --secondary-glow: 355 85% 55% / 0.12;
   --text-primary: 210 20% 98%;
-  --text-secondary: 217 15% 75%;
-  --text-muted: 217 10% 55%;
+  --text-secondary: 217 15% 78%;
+  --text-muted: 217 10% 58%;
   
-  --success: 142 72% 43%;
-  --warning: 38 92% 50%;
-  --danger: 0 84% 60%;
+  --success: 142 68% 45%;             /* Professional Success Green */
+  --warning: 45 90% 52%;              /* Warm Amber Gold */
+  --danger: 355 85% 55%;              /* Crimson Red */
   
-  --border-color: 224 15% 22%;
-  --border-glow: 263 80% 62% / 0.3;
+  --border-color: 218 15% 20%;
+  --border-glow: 215 90% 52% / 0.2;
   
   /* Font Stacks */
   --font-display: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
