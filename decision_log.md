@@ -2,6 +2,8 @@
 
 This document outlines the key design choices, assumptions, trade-offs, and architectural justifications made during the development of the Monday.com BI Agent.
 
+**Author: Ram Lasya** (Roll/Student ID: AP23110010167)
+
 ---
 
 ## 1. Architectural Decisions & Tech Stack

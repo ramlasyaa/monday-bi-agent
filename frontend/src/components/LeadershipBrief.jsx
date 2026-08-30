@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import ReactMarkdown from 'react-markdown';
-import { FileText, RefreshCw, Printer, AlertTriangle, Briefcase, FileCheck2, ShieldAlert } from 'lucide-react';
+import { 
+  FileText, RefreshCw, Printer, FileCheck2, 
+  Presentation, LayoutGrid, ChevronLeft, ChevronRight 
+} from 'lucide-react';
 
 const SECTORS = ["All", "Renewables", "Mining", "Railways", "Powerline", "Construction", "Others"];
 const QUARTERS = ["All", "Q1", "Q2", "Q3", "Q4"];
@@ -14,6 +17,10 @@ export default function LeadershipBrief({ setNotification }) {
   const [reportMarkdown, setReportMarkdown] = useState('');
   const [metrics, setMetrics] = useState(null);
   const [loading, setLoading] = useState(false);
+  
+  // Presentation slide state
+  const [viewMode, setViewMode] = useState('document'); // 'document' | 'deck'
+  const [currentSlide, setCurrentSlide] = useState(0);
 
   const handleGenerate = async () => {
     setLoading(true);
@@ -35,6 +42,7 @@ export default function LeadershipBrief({ setNotification }) {
 
       setReportMarkdown(data.report_markdown);
       setMetrics(data.metrics);
+      setCurrentSlide(0); // Reset to slide 1
       setNotification({ type: 'success', message: 'Executive brief compiled successfully!' });
     } catch (err) {
       setNotification({ type: 'danger', message: err.message });
@@ -50,7 +58,6 @@ export default function LeadershipBrief({ setNotification }) {
 
   const formatCurrency = (val) => {
     if (!val && val !== 0) return 'N/A';
-    // India notation formatting or simple international
     if (val >= 10000000) {
       return `₹${(val / 10000000).toFixed(2)} Cr (Masked)`;
     } else if (val >= 100000) {
@@ -58,6 +65,26 @@ export default function LeadershipBrief({ setNotification }) {
     }
     return `₹${val.toLocaleString()} (Masked)`;
   };
+
+  // Split markdown by Level 2 headings (##) to extract slides
+  const getSlides = () => {
+    if (!reportMarkdown) return [];
+    const sections = reportMarkdown.split(/\n##\s+/);
+    const slides = [];
+
+    // Executive summary slide
+    if (sections[0].trim()) {
+      slides.push(sections[0].trim());
+    }
+
+    for (let i = 1; i < sections.length; i++) {
+      slides.push("## " + sections[i].trim());
+    }
+
+    return slides;
+  };
+
+  const slides = getSlides();
 
   return (
     <div className="brief-report-container">
@@ -139,21 +166,105 @@ export default function LeadershipBrief({ setNotification }) {
         )}
       </div>
 
-      {/* Printed Report Area */}
+      {/* Rendered Briefing Area */}
       {reportMarkdown && (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-          <div className="report-actions">
-            <button className="btn btn-secondary" onClick={handlePrint}>
-              <Printer size={16} />
-              <span>Print / Save as PDF</span>
-            </button>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+          
+          {/* Controls to switch layout and print */}
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
+            {/* Mode Selector */}
+            <div style={{ display: 'flex', gap: '0.25rem', backgroundColor: 'hsl(var(--bg-surface-elevated) / 0.5)', padding: '0.25rem', borderRadius: '8px', border: '1px solid hsl(var(--border-color))' }}>
+              <button 
+                className={`nav-tab ${viewMode === 'document' ? 'active' : ''}`}
+                onClick={() => setViewMode('document')}
+                style={{ padding: '0.4rem 0.8rem', fontSize: '0.8rem', height: 'auto' }}
+              >
+                <LayoutGrid size={14} style={{ marginRight: '4px' }} />
+                Document View
+              </button>
+              <button 
+                className={`nav-tab ${viewMode === 'deck' ? 'active' : ''}`}
+                onClick={() => { setViewMode('deck'); setCurrentSlide(0); }}
+                style={{ padding: '0.4rem 0.8rem', fontSize: '0.8rem', height: 'auto' }}
+              >
+                <Presentation size={14} style={{ marginRight: '4px' }} />
+                Board Presentation Slides
+              </button>
+            </div>
+
+            {viewMode === 'document' && (
+              <button className="btn btn-secondary" onClick={handlePrint} style={{ height: '36px', fontSize: '0.85rem' }}>
+                <Printer size={14} />
+                <span>Print / Save as PDF</span>
+              </button>
+            )}
           </div>
 
-          <div className="report-body">
-            <div className="report-content">
-              <ReactMarkdown>{reportMarkdown}</ReactMarkdown>
+          {/* View mode 1: Full Document */}
+          {viewMode === 'document' && (
+            <div className="report-body">
+              <div className="report-content">
+                <ReactMarkdown>{reportMarkdown}</ReactMarkdown>
+              </div>
             </div>
-          </div>
+          )}
+
+          {/* View mode 2: Interactive Slideshow */}
+          {viewMode === 'deck' && slides.length > 0 && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', width: '100%', maxWidth: '850px', margin: '0 auto' }}>
+              <div className="glass-card" style={{ 
+                minHeight: '420px', 
+                display: 'flex', 
+                flexDirection: 'column', 
+                justifyContent: 'space-between', 
+                padding: '3rem', 
+                borderLeft: '6px solid hsl(var(--primary))',
+                backgroundColor: 'hsl(var(--bg-surface))',
+                boxShadow: '0 12px 40px rgba(90, 100, 110, 0.06)'
+              }}>
+                {/* Content */}
+                <div className="report-content" style={{ fontSize: '1.05rem', flex: 1 }}>
+                  <ReactMarkdown>{slides[currentSlide]}</ReactMarkdown>
+                </div>
+
+                {/* Footer Controls */}
+                <div style={{ 
+                  display: 'flex', 
+                  justifyContent: 'space-between', 
+                  alignItems: 'center', 
+                  marginTop: '2.5rem', 
+                  borderTop: '1px solid hsl(var(--border-color))', 
+                  paddingTop: '1.25rem' 
+                }}>
+                  <span style={{ fontSize: '0.8rem', color: 'hsl(var(--text-muted))', fontWeight: 'bold', letterSpacing: '0.05em' }}>
+                    SLIDE {currentSlide + 1} OF {slides.length}
+                  </span>
+                  
+                  <div style={{ display: 'flex', gap: '0.5rem' }}>
+                    <button 
+                      className="btn btn-secondary" 
+                      onClick={() => setCurrentSlide(prev => Math.max(0, prev - 1))}
+                      disabled={currentSlide === 0}
+                      style={{ padding: '0.4rem 1rem', fontSize: '0.8rem', height: 'auto' }}
+                    >
+                      <ChevronLeft size={16} />
+                      <span>Prev</span>
+                    </button>
+                    <button 
+                      className="btn" 
+                      onClick={() => setCurrentSlide(prev => Math.min(slides.length - 1, prev + 1))}
+                      disabled={currentSlide === slides.length - 1}
+                      style={{ padding: '0.4rem 1rem', fontSize: '0.8rem', height: 'auto' }}
+                    >
+                      <span>Next</span>
+                      <ChevronRight size={16} />
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
         </div>
       )}
 

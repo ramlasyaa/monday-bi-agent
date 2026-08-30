@@ -2,7 +2,7 @@
 
 A conversational Business Intelligence Agent that integrates with Monday.com boards (Work Orders and Deals data) to answer founder-level queries, analyze metrics, and prepare executive leadership updates.
 
-Designed as a technical screening assignment for Skylark Drones.
+Designed as a technical screening assignment for Skylark Drones by **Ram Lasya** (Student ID/Roll: AP23110010167).
 
 ---
 
