@@ -1,0 +1,27 @@
+# Python virtual environment and cache
+venv/
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Node.js dependencies and builds
+node_modules/
+dist/
+.env
+.env.local
+.env.*.local
+
+# Operating system files
+.DS_Store
+Thumbs.db
+
+# Log files and database local files
+*.log
+*.sqlite3
+
+# Dynamic analytical assets
+backend/static/chart_*.png
+frontend/vite.log
+backend/uvicorn.log
