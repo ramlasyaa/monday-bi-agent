@@ -90,7 +90,7 @@ export default function App() {
           <div>
             <h1 className="brand-title">Monday.com Business Intelligence Agent</h1>
             <span style={{ fontSize: '0.7rem', color: 'hsl(var(--text-muted))', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-              Candidate: Ram Lasya | Skylark Drones Technical Screening
+              Candidate: Ram Lasya (Roll: CB.AI.U4AID23030) | Skylark Drones Technical Screening
             </span>
           </div>
         </div>
